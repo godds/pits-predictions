@@ -1,11 +1,5 @@
-requirejs.config({
-  baseUrl: "js",
-  paths: {
-    lib: "libs"
-  }
-});
+(function() {
 
-requirejs(["lib/knockout"],
-function(ko) {
-  // TODO
-});
+  ko.applyBindings(new LeagueViewModel());
+
+})();
