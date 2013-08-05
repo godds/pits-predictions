@@ -1,5 +1,3 @@
-(function() {
+"use strict";
 
-  ko.applyBindings(new LeagueViewModel());
-
-})();
+angular.module("pits-predictor", [ "pp-services" ]);
