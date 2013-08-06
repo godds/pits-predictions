@@ -15,15 +15,19 @@
   </header>
 
   <section class="container">
+    <h3>Premier League</h3>
     <ol ng-controller="TeamController">
-      <li ng-repeat="team in teams">{{ team.team }}</li>
+      <li ng-repeat="team in teams" ng-bind="team.teamshort"></li>
     </ol>
+    <h3>Predictions</h3>
+    <pre ng-controller="PredictionController" ng-bind="prediction | json"></pre>
   </section>
 
   <footer class="container">
 
   </footer>
 
+  <script src="http://www.parsecdn.com/js/parse-1.2.8.min.js"></script>
   <script src="js/libs/angular.min.js" type="text/javascript"></script>
   <script src="js/libs/angular-resource.min.js" type="text/javascript"></script>
   <script src="js/services.js" type="text/javascript"></script>
