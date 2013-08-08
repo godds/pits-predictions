@@ -16,9 +16,26 @@
 
   <section class="container">
     <h3>Premier League</h3>
-    <ol ng-controller="TeamController">
-      <li ng-repeat="team in teams" ng-bind="team.teamshort"></li>
-    </ol>
+    <table ng-controller="TeamController">
+      <thead>
+        <tr>
+          <td>Pos</td>
+          <td>Team</td>
+          <td>P</td>
+          <td>GD</td>
+          <td>Pts</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="team in teams">
+          <td ng-bind="$index + 1"></td>
+          <td ng-bind="team.teamshort"></td>
+          <td ng-bind="team.played"></td>
+          <td ng-bind="team.difference"></td>
+          <td ng-bind="team.points"></td>
+        </tr>
+      </tbody>
+    </table>
     <h3>Predictions</h3>
     <pre ng-controller="PredictionController" ng-bind="prediction | json"></pre>
   </section>
