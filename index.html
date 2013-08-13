@@ -9,38 +9,108 @@
   </script>
   <script src="js/libs/less.js" type="text/javascript"></script>
 </head>
-<body>
-  <header class="container">
+<body class="container">
+  <header class="row">
     <h1>Pits Predictor</h1>
   </header>
 
-  <section class="container">
-    <h3>Premier League</h3>
-    <table ng-controller="TeamController">
-      <thead>
-        <tr>
-          <td>Pos</td>
-          <td>Team</td>
-          <td>P</td>
-          <td>GD</td>
-          <td>Pts</td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="team in teams">
-          <td ng-bind="$index + 1"></td>
-          <td ng-bind="team.teamshort"></td>
-          <td ng-bind="team.played"></td>
-          <td ng-bind="team.difference"></td>
-          <td ng-bind="team.points"></td>
-        </tr>
-      </tbody>
-    </table>
-    <h3>Predictions</h3>
-    <pre ng-controller="PredictionController" ng-bind="prediction | json"></pre>
-  </section>
+  <div class="row">
 
-  <footer class="container">
+    <section ng-controller="PredictionController" class="span4">
+      <h3>Standing</h3>
+      <table>
+        <thead>
+        <tr>
+          <td></td>
+          <td>Name</td>
+          <td>League</td>
+          <td>FAC</td>
+          <td>LC</td>
+          <td>CL</td>
+          <td>TS</td>
+          <td>SM</td>
+          <td>POTY</td>
+          <td>YPOTY</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="standing in standings">
+          <td ng-bind="$index + 1"></td>
+          <td ng-bind="standing.player"></td>
+          <td ng-bind="standing.premierLeague"></td>
+          <td ng-bind="standing.faCup"></td>
+          <td ng-bind="standing.leagueCup"></td>
+          <td ng-bind="standing.championsLeague"></td>
+          <td ng-bind="standing.topScorer"></td>
+          <td ng-bind="standing.sackedManager"></td>
+          <td ng-bind="standing.playerOfTheYear"></td>
+          <td ng-bind="standing.youngPlayerOfTheYear"></td>
+        </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section ng-controller="TeamController" class="span4">
+      <h3>Premier League</h3>
+      <table>
+        <thead>
+          <tr>
+            <td></td>
+            <td>Team</td>
+            <td>P</td>
+            <td>GD</td>
+            <td>Pts</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="team in currentWorld.premierLeague">
+            <td ng-bind="$index + 1"></td>
+            <td ng-bind="team.teamshort"></td>
+            <td ng-bind="team.played"></td>
+            <td ng-bind="team.difference"></td>
+            <td ng-bind="team.points"></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>FA Cup</h3>
+      <ul class="fixtures">
+        <li ng-repeat="fixture in currentWorld.faCup">{{ fixture.homeshort }} v {{ fixture.awayshort }}</li>
+      </ul>
+
+      <h3>League Cup</h3>
+      <ul class="fixtures">
+        <li ng-repeat="fixture in currentWorld.leagueCup">{{ fixture.homeshort }} v {{ fixture.awayshort }}</li>
+      </ul>
+
+      <h3>Top Scorer</h3>
+      <table>
+        <thead>
+          <tr>
+            <td></td>
+            <td>Name</td>
+            <td>Goals</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="scorer in currentWorld.topScorers">
+            <td ng-bind="$index + 1"></td>
+            <td ng-bind="scorer.player"></td>
+            <td ng-bind="scorer.goals"></td>
+          </tr>
+        </tbody>
+      </table>
+
+    </section>
+
+    <!--
+    <section ng-controller="PlayerPredictionController">
+      <h3 ng-bind="prediction.player"></h3>
+    </section>
+    -->
+  </div>
+
+  <footer class="row">
 
   </footer>
 
