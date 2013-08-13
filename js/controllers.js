@@ -1,10 +1,6 @@
 "use strict";
 
-function TeamController($scope, table) {
-    $scope.teams = table.query();
-}
-
-function PredictionController($scope, world, predictions) {
+function AppController($scope, world, predictions) {
     $scope.standings = [];
     $scope.currentWorld;
     var currentPredictions;
@@ -39,32 +35,31 @@ function PredictionController($scope, world, predictions) {
         if (!$scope.currentWorld || !currentPredictions) {
             return;
         }
-        $scope.$apply(function() {
-            currentPredictions.forEach(function(item) {
-                var points = {
-                    player: item.get("player"),
-                    premierLeague: calculatePremierLeaguePoints($scope.currentWorld.premierLeague, item.get("premierLeague")),
-                    faCup: calculateCupPoints($scope.currentWorld.faCup, item.get("faCup")),
-                    leagueCup: calculateCupPoints($scope.currentWorld.leagueCup, item.get("leagueCup")),
-                    championsLeague: calculateCupPoints($scope.currentWorld.championsLeague, item.get("championsLeague")),
-                    topScorer: calculateTopScorerPoints($scope.currentWorld.topScorer, item.get("topScorer")),
-                    sackedManager: calculatePersonPoints($scope.currentWorld.sackedManager, item.get("sackedManager")),
-                    playerOfTheYear: calculatePersonPoints($scope.currentWorld.playerOfTheYear, item.get("playerOfTheYear")),
-                    youngPlayerOfTheYear: calculatePersonPoints($scope.currentWorld.youngPlayerOfTheYear, item.get("youngPlayerOfTheYear"))
-                };
-                points.total = points.premierLeague
-                             + points.faCup
-                             + points.leagueCup
-                             + points.championsLeague
-                             + points.topScorer
-                             + points.sackedManager
-                             + points.playerOfTheYear
-                             + points.youngPLayerOfTheYear;
-                $scope.standings.push(points);
-            });
-            $scope.standings.sort(function(a, b) {
-                return -1;
-            });
+        currentPredictions.forEach(function(item) {
+            var points = {
+                prediction: item,
+                player: item.get("player"),
+                premierLeague: calculatePremierLeaguePoints($scope.currentWorld.premierLeague, item.get("premierLeague")),
+                faCup: calculateCupPoints($scope.currentWorld.faCup, item.get("faCup")),
+                leagueCup: calculateCupPoints($scope.currentWorld.leagueCup, item.get("leagueCup")),
+                championsLeague: calculateCupPoints($scope.currentWorld.championsLeague, item.get("championsLeague")),
+                topScorer: calculateTopScorerPoints($scope.currentWorld.topScorer, item.get("topScorer")),
+                sackedManager: calculatePersonPoints($scope.currentWorld.sackedManager, item.get("sackedManager")),
+                playerOfTheYear: calculatePersonPoints($scope.currentWorld.playerOfTheYear, item.get("playerOfTheYear")),
+                youngPlayerOfTheYear: calculatePersonPoints($scope.currentWorld.youngPlayerOfTheYear, item.get("youngPlayerOfTheYear"))
+            };
+            points.total = points.premierLeague
+                         + points.faCup
+                         + points.leagueCup
+                         + points.championsLeague
+                         + points.topScorer
+                         + points.sackedManager
+                         + points.playerOfTheYear
+                         + points.youngPlayerOfTheYear;
+            $scope.standings.push(points);
+        });
+        $scope.standings.sort(function(a, b) {
+            return -1;
         });
     };
 
@@ -83,8 +78,11 @@ function PredictionController($scope, world, predictions) {
     function(error) {
         console.log("error fetching predictions");
     });
-}
 
-function PlayerPredictionController($scope) {
-
+    $scope.showDetails = function(standing) {
+        $scope.selectedPlayer = standing;
+    };
+    $scope.hideDetails = function() {
+        $scope.selectedPlayer = null;
+    }
 }
