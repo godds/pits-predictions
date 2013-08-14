@@ -19,14 +19,24 @@ angular.module("pp-services", ["ngResource"]).
                         { query: { method: "JSONP", isArray: true } });
     }).
     factory("faCup", function($resource) {
-        return $resource("http://api.statsfc.com/fa-cup/results.json",
+        return {
+            query: function() {
+                return [];
+            }
+        };
+        /*return $resource("http://api.statsfc.com/fa-cup/results.json",
                          { key: "free", callback: "JSON_CALLBACK", cache: true, limit: 6 },
-                         { query: { method: "JSONP", isArray: true } });
+                         { query: { method: "JSONP", isArray: true } });*/
     }).
     factory("leagueCup", function($resource) {
-        return $resource("http://api.statsfc.com/league-cup/results.json",
+        return {
+            query: function() {
+                return [];
+            }
+        };
+        /*return $resource("http://api.statsfc.com/league-cup/results.json",
                          { key: "free", callback: "JSON_CALLBACK", cache: true, limit: 6 },
-                         { query: { method: "JSONP", isArray: true } });
+                         { query: { method: "JSONP", isArray: true } });*/
     }).
     factory("championsLeague", function() {
         return {
@@ -64,9 +74,7 @@ angular.module("pp-services", ["ngResource"]).
     factory("world", function(table, faCup, leagueCup, championsLeague, topScorers, sackedManager, playerOfTheYear, youngPlayerOfTheYear) {
         var returned = {
             premierLeague: false,
-            faCup: false,
-            leagueCup: false,
-            topScorers: false
+            faCup: false
         };
         var result = {};
         var returnResult = function(success, error) {
@@ -82,20 +90,14 @@ angular.module("pp-services", ["ngResource"]).
         return {
             query: function(success, error) {
                 // TODO handle errors
+                result.faCup = faCup.query();
+                result.leagueCup = leagueCup.query();
                 result.championsLeague = championsLeague.query();
                 result.sackedManager = sackedManager.query();
                 result.playerOfTheYear = playerOfTheYear.query();
                 result.youngPlayerOfTheYear = youngPlayerOfTheYear.query();
                 result.premierLeague = table.query(null, function() {
                     returned.premierLeague = true;
-                    returnResult(success, error);
-                });
-                result.faCup = faCup.query(null, function() {
-                    returned.faCup = true;
-                    returnResult(success, error);
-                });
-                result.leagueCup = leagueCup.query(null, function() {
-                    returned.leagueCup = true;
                     returnResult(success, error);
                 });
                 result.topScorers = topScorers.query(null, function() {
