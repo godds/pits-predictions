@@ -52,16 +52,9 @@
     </section>
 
     <section ng-show="selectedPlayer" class="span3 prediction">
-      <h3>{{ selectedPlayer.player }} - {{ selectedPlayer.total }}</h3>
-      <h4>Premier League - {{ selectedPlayer.premierLeague }}</h4>
+      <h3>{{ selectedPlayer.player }} - {{ selectedPlayer.total }}pts</h3>
+      <h5>Premier League - {{ selectedPlayer.premierLeague }}pts</h5>
       <table class="table-condensed">
-        <thead>
-          <tr>
-            <td class="text-right"></td>
-            <td>Team</td>
-            <td class="text-right"></td>
-          </tr>
-        </thead>
         <tbody>
           <tr ng-repeat="team in selectedPlayer.prediction.premierLeague">
             <td ng-bind="$index + 1" class="text-right"></td>
@@ -70,28 +63,26 @@
         </tbody>
       </table>
 
-      <h4>FA Cup</h4>
+      <h5>FA Cup</h5>
       <p>{{ selectedPlayer.prediction.faCup }} - {{ selectedPlayer.faCup }}pts</p>
 
-      <h4>League Cup</h4>
+      <h5>League Cup</h5>
       <p>{{ selectedPlayer.prediction.leagueCup }} - {{ selectedPlayer.leagueCup }}pts</p>
 
-      <h4>Champions League</h4>
+      <h5>Champions League</h5>
       <p>{{ selectedPlayer.prediction.championsLeague }} - {{ selectedPlayer.championsLeague }}pts</p>
 
-      <h4>Top Scorer</h4>
+      <h5>Top Scorer</h5>
       <p>{{ selectedPlayer.prediction.topScorer }} - {{ selectedPlayer.topScorer }}pts</p>
 
-      <h4>Sacked Manager</h4>
+      <h5>Sacked Manager</h5>
       <p>{{ selectedPlayer.prediction.sackedManager }} - {{ selectedPlayer.sackedManager }}pts</p>
 
-      <h4>Player of the Year</h4>
+      <h5>Player of the Year</h5>
       <p>{{ selectedPlayer.prediction.playerOfTheYear }} - {{ selectedPlayer.playerOfTheYear }}pts</p>
 
-      <h4>Young Player of the Year</h4>
+      <h5>Young Player of the Year</h5>
       <p>{{ selectedPlayer.prediction.youngPlayerOfTheYear }} - {{ selectedPlayer.youngPlayerOfTheYear }}</p>
-
-      <button ng-click="closeDetails()">Close</button>
     </section>
 
     <section class="span3">

@@ -5,6 +5,18 @@ function AppController($scope, world, predictions) {
     $scope.currentWorld;
     var currentPredictions;
 
+    var transformPrediction = function(item) {
+        return {
+            premierLeague: item.get("premierLeague"),
+            faCup: item.get("faCup"),
+            leagueCup: item.get("leagueCup"),
+            championsLeague: item.get("championsLeague"),
+            topScorer: item.get("topScorer"),
+            sackedManager: item.get("sackedManager"),
+            playerOfTheYear: item.get("playerOfTheYear"),
+            youngPlayerOfTheYear: item.get("youngPlayerOfTheYear")
+        };
+    };
     var calculatePremierLeaguePoints = function(league, prediction) {
         var result = 0;
         prediction.forEach(function(item, index) {
@@ -35,31 +47,34 @@ function AppController($scope, world, predictions) {
         if (!$scope.currentWorld || !currentPredictions) {
             return;
         }
-        currentPredictions.forEach(function(item) {
-            var points = {
-                prediction: item,
-                player: item.get("player"),
-                premierLeague: calculatePremierLeaguePoints($scope.currentWorld.premierLeague, item.get("premierLeague")),
-                faCup: calculateCupPoints($scope.currentWorld.faCup, item.get("faCup")),
-                leagueCup: calculateCupPoints($scope.currentWorld.leagueCup, item.get("leagueCup")),
-                championsLeague: calculateCupPoints($scope.currentWorld.championsLeague, item.get("championsLeague")),
-                topScorer: calculateTopScorerPoints($scope.currentWorld.topScorer, item.get("topScorer")),
-                sackedManager: calculatePersonPoints($scope.currentWorld.sackedManager, item.get("sackedManager")),
-                playerOfTheYear: calculatePersonPoints($scope.currentWorld.playerOfTheYear, item.get("playerOfTheYear")),
-                youngPlayerOfTheYear: calculatePersonPoints($scope.currentWorld.youngPlayerOfTheYear, item.get("youngPlayerOfTheYear"))
-            };
-            points.total = points.premierLeague
-                         + points.faCup
-                         + points.leagueCup
-                         + points.championsLeague
-                         + points.topScorer
-                         + points.sackedManager
-                         + points.playerOfTheYear
-                         + points.youngPlayerOfTheYear;
-            $scope.standings.push(points);
-        });
-        $scope.standings.sort(function(a, b) {
-            return -1;
+        $scope.$apply(function() {
+            currentPredictions.forEach(function(item) {
+                var prediction = transformPrediction(item);
+                var points = {
+                    prediction: prediction,
+                    player: item.get("player"),
+                    premierLeague: calculatePremierLeaguePoints($scope.currentWorld.premierLeague, prediction.premierLeague),
+                    faCup: calculateCupPoints($scope.currentWorld.faCup, prediction.faCup),
+                    leagueCup: calculateCupPoints($scope.currentWorld.leagueCup, prediction.leagueCup),
+                    championsLeague: calculateCupPoints($scope.currentWorld.championsLeague, prediction.championsLeague),
+                    topScorer: calculateTopScorerPoints($scope.currentWorld.topScorer, prediction.topScorer),
+                    sackedManager: calculatePersonPoints($scope.currentWorld.sackedManager, prediction.sackedManager),
+                    playerOfTheYear: calculatePersonPoints($scope.currentWorld.playerOfTheYear, prediction.playerOfTheYear),
+                    youngPlayerOfTheYear: calculatePersonPoints($scope.currentWorld.youngPlayerOfTheYear, prediction.youngPlayerOfTheYear)
+                };
+                points.total = points.premierLeague
+                    + points.faCup
+                    + points.leagueCup
+                    + points.championsLeague
+                    + points.topScorer
+                    + points.sackedManager
+                    + points.playerOfTheYear
+                    + points.youngPlayerOfTheYear;
+                $scope.standings.push(points);
+            });
+            $scope.standings.sort(function(a, b) {
+                return a.total - b.total;
+            });
         });
     };
 
@@ -80,7 +95,12 @@ function AppController($scope, world, predictions) {
     });
 
     $scope.showDetails = function(standing) {
-        $scope.selectedPlayer = standing;
+        if (standing != $scope.selectedPlayer) {
+            $scope.selectedPlayer = standing;
+        }
+        else {
+            $scope.selectedPlayer = null;
+        }
     };
     $scope.hideDetails = function() {
         $scope.selectedPlayer = null;

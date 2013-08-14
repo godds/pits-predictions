@@ -8,13 +8,13 @@
     var Prediction = Parse.Object.extend("Prediction");
     var prediction = new Prediction();
     prediction.save({
-            player: "Graham",
-            premierLeague: [ "Liverpool", "Arsenal", "Chelsea", "Man Utd", "Man City", "Newcastle", "Everton", "Fulham", "West Brom", "Tottenham", "Cardiff", "Swansea", "Sunderland", "Stoke", "Southampton", "Norwich", "Hull", "Crystal Palace", "West Ham", "Aston Villa" ],
-            faCup: "Liverpool",
-            leagueCup: "Arsenal",
+            player: "Graham Odds",
+            premierLeague: [ "Chelsea", "Man Utd", "Man City", "Tottenham", "Arsenal", "Swansea", "Liverpool", "Newcastle", "Everton", "West Brom", "Sunderland", "Southampton", "Stoke", "Cardiff", "Aston Villa", "West Ham", "Norwich", "Hull" , "Crystal Palace" ],
+            faCup: "Man City",
+            leagueCup: "Swansea",
             championsLeague: "Bayern Munich",
             topScorer: "Robin Van Persie",
-            sackedManager: "Alan Pardew",
+            sackedManager: "",
             playerOfTheYear: "Robin Van Persie",
             youngPlayerOfTheYear: "Wilfried Zaha"
         }, {
