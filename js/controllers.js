@@ -18,6 +18,7 @@ function AppController($scope, world, predictions) {
         };
     };
     var calculatePremierLeaguePoints = function(league, prediction) {
+        league = league.map(function(item) { return item.teamshort; });
         var result = 0;
         prediction.forEach(function(item, index) {
             result += Math.abs(index - league.indexOf(item));
@@ -35,10 +36,13 @@ function AppController($scope, world, predictions) {
         if (!topScorers || !topScorers.length) {
             return 0;
         }
-        topScorers = topScorers.map(function(player) { return player.player; });
-        var index = topScorers.indexOf(prediction);
-        return index === 0 ? 0
-            : index === 1 || index === 2 ? 2 : 4;
+        for (var i = 0; i < topScorers.length && i < 3; i++) {
+            if (topScorers[i].player == prediction) {
+                return i === 0 ? 0
+                     : i == 1 || i == 2 ? 2 : 4;
+            }
+        }
+        return 4;
     };
     var calculatePersonPoints = function(person, prediction) {
         return !person || person == prediction ? 0 : 3;
@@ -57,7 +61,7 @@ function AppController($scope, world, predictions) {
                     faCup: calculateCupPoints($scope.currentWorld.faCup, prediction.faCup),
                     leagueCup: calculateCupPoints($scope.currentWorld.leagueCup, prediction.leagueCup),
                     championsLeague: calculateCupPoints($scope.currentWorld.championsLeague, prediction.championsLeague),
-                    topScorer: calculateTopScorerPoints($scope.currentWorld.topScorer, prediction.topScorer),
+                    topScorer: calculateTopScorerPoints($scope.currentWorld.topScorers, prediction.topScorer),
                     sackedManager: calculatePersonPoints($scope.currentWorld.sackedManager, prediction.sackedManager),
                     playerOfTheYear: calculatePersonPoints($scope.currentWorld.playerOfTheYear, prediction.playerOfTheYear),
                     youngPlayerOfTheYear: calculatePersonPoints($scope.currentWorld.youngPlayerOfTheYear, prediction.youngPlayerOfTheYear)
