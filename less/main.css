@@ -1486,8 +1486,8 @@ select:focus:invalid:focus {
 }
 .input-append .active,
 .input-prepend .active {
-  background-color: #a9dba9;
-  border-color: #46a546;
+  background-color: #d6ff58;
+  border-color: #8fbe00;
 }
 .input-prepend .add-on,
 .input-prepend .btn {
@@ -5260,4 +5260,27 @@ a.badge:focus {
 }
 .affix {
   position: fixed;
+}
+body {
+  background-color: #f9f2e7;
+}
+h1 {
+  color: #00a8c6;
+}
+header .logo {
+  height: 50px;
+}
+.table-condensed th,
+.table-condensed td {
+  padding: 0 5px;
+}
+.table-hover tbody tr,
+.table-hover tbody th,
+.table-hover tbody td {
+  cursor: pointer;
+}
+.fixtures {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
