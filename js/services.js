@@ -53,7 +53,7 @@ angular.module("pp-services", ["ngResource"]).
     factory("sackedManager", function() {
         return {
             query: function() {
-                return null;
+                return "Paolo Di Canio";
             }
         };
     }).
