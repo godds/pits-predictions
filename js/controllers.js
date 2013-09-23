@@ -51,7 +51,7 @@ function AppController($scope, world, predictions) {
         if (!$scope.currentWorld || !currentPredictions) {
             return;
         }
-        $scope.$apply(function() {
+        function update() {
             currentPredictions.forEach(function(item) {
                 var prediction = transformPrediction(item);
                 var points = {
@@ -79,7 +79,13 @@ function AppController($scope, world, predictions) {
             $scope.standings.sort(function(a, b) {
                 return a.total - b.total;
             });
-        });
+        }
+        try {
+            $scope.$apply(update);
+        }
+        catch (e) {
+            update();
+        }
     };
 
     world.query(function(result) {
