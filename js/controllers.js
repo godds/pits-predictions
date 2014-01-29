@@ -26,10 +26,27 @@ function AppController($scope, world, predictions) {
         return result;
     };
     var calculateCupPoints = function(results, prediction) {
-        if (!results || !results.length) {
+        if (!results) {
             return 0;
         }
-        // TODO 2 4 6
+        // not at semi-final stage yet
+        if (results.length) {
+            return results.indexOf(prediction) != -1 ? 0 : 6;
+        }
+        else if (results.semi || results.final || results.winner) {
+            if (results.winner && results.winner == prediction) {
+                return 0;
+            }
+            if (results.final && results.final.indexOf(prediction) != -1) {
+                 // only give points once final has been played
+                return !results.winner ? 0 : 2;
+            }
+            if (results.semi && results.semi.indexOf(prediction) != -1) {
+                // only give points once semi-finals have been played
+                return !results.final ? 0 : 4;
+            }
+            return 6;
+        }
         return 0;
     };
     var calculateTopScorerPoints = function(topScorers, prediction) {

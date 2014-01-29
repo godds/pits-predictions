@@ -21,27 +21,21 @@ angular.module("pp-services", ["ngResource"]).
     factory("faCup", function($resource) {
         return {
             query: function() {
-                return [];
+                return [ "Fulham", "Sheffield Utd", "Preston", "Nottingham Forest", "Arsenal", "Liverpool", "Brighton", "Hull", "Cardiff", "Wigan", "Everton", "Swansea", "Man City", "Chelsea", "Sheffield Wednesday", "Charlton", "Sunderland", "Southampton" ];
             }
         };
-        /*return $resource("http://api.statsfc.com/fa-cup/results.json",
-                         { key: "free", callback: "JSON_CALLBACK", cache: true, limit: 6 },
-                         { query: { method: "JSONP", isArray: true } });*/
     }).
     factory("leagueCup", function($resource) {
         return {
             query: function() {
-                return [];
+                return { final: [ "Man City", "Sunderland" ], semi: [ "Man City", "West Ham", "Man Utd", "Sunderland" ] };
             }
         };
-        /*return $resource("http://api.statsfc.com/league-cup/results.json",
-                         { key: "free", callback: "JSON_CALLBACK", cache: true, limit: 6 },
-                         { query: { method: "JSONP", isArray: true } });*/
     }).
     factory("championsLeague", function() {
         return {
             query: function() {
-                return [];
+                return [ "Bayer Leverkussen", "PSG", "Man City", "Barcelona", "Arsenal", "Bayern Munich", "Milan", "Atletico Madrid", "Zenit St Petersburg", "Borussia Dortmund", "Olympiakos", "Man Utd", "Shalke", "Real Madrid", "Galatasaray", "Chelsea" ];
             }
         };
     }).
