@@ -18,7 +18,6 @@ function AppController($scope, world, predictions) {
         };
     };
     var calculatePremierLeaguePoints = function(league, prediction) {
-        league = league.map(function(item) { return item.teamshort; });
         var result = 0;
         prediction.forEach(function(item, index) {
             result += Math.abs(index - league.indexOf(item));

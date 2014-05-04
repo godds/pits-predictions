@@ -14,35 +14,39 @@ angular.module("pp-services", ["ngResource"]).
         }
     }).
     factory("table", function($resource) {
-        return $resource("http://api.statsfc.com/premier-league/table.json",
-                        { key: "free", callback: "JSON_CALLBACK", cache: true },
-                        { query: { method: "JSONP", isArray: true } });
+        return {
+            query: function() {
+                return [ "Man City", "Liverpool", "Chelsea", "Arsenal", "Everton", "Tottenham", "Man Utd", "Southampton", "Newcastle", "Stoke", "Crystal Palace", "West Ham", "Swansea", "Aston Villa", "Hull", "West Brom", "Sunderland", "Norwich", "Fulham", "Cardiff" ];
+            }
+        };
     }).
     factory("faCup", function($resource) {
         return {
             query: function() {
-                return [ "Fulham", "Sheffield Utd", "Preston", "Nottingham Forest", "Arsenal", "Liverpool", "Brighton", "Hull", "Cardiff", "Wigan", "Everton", "Swansea", "Man City", "Chelsea", "Sheffield Wednesday", "Charlton", "Sunderland", "Southampton" ];
+                return { final: [ "Arsenal", "Hull"], semi: [ "Wigan", "Arsenal", "Hull", "Sheffield Utd" ] };
             }
         };
     }).
     factory("leagueCup", function($resource) {
         return {
             query: function() {
-                return { final: [ "Man City", "Sunderland" ], semi: [ "Man City", "West Ham", "Man Utd", "Sunderland" ] };
+                return { winner: "Man City", final: [ "Man City", "Sunderland" ], semi: [ "Man City", "West Ham", "Man Utd", "Sunderland" ] };
             }
         };
     }).
     factory("championsLeague", function() {
         return {
             query: function() {
-                return [ "Bayer Leverkussen", "PSG", "Man City", "Barcelona", "Arsenal", "Bayern Munich", "Milan", "Atletico Madrid", "Zenit St Petersburg", "Borussia Dortmund", "Olympiakos", "Man Utd", "Shalke", "Real Madrid", "Galatasaray", "Chelsea" ];
+                return { final: [ "Atletico Madrid", "Real Madrid" ], semi: [ "Atletico Madrid", "Real Madrid", "Barcelona", "Bayern Munich" ] };
             }
         };
     }).
     factory("topScorers", function($resource) {
-        return $resource("http://api.statsfc.com/premier-league/top-scorers.json",
-                         { key: "free", callback: "JSON_CALLBACK", cache: true, limit: 6 },
-                         { query: { method: "JSONP", isArray: true } });
+        return {
+            query: function() {
+                return [ "Luis Suarez", "Daniel Sturridge", "Yaya Toure", "Sergio Aguero", "Wayne Rooney" ];
+            }
+        };
     }).
     factory("sackedManager", function() {
         return {
@@ -54,49 +58,30 @@ angular.module("pp-services", ["ngResource"]).
     factory("playerOfTheYear", function() {
         return {
             query: function() {
-                return null;
+                return "Luis Suarez";
             }
         };
     }).
     factory("youngPlayerOfTheYear", function() {
         return {
             query: function() {
-                return null;
+                return "Eden Hazard";
             }
         };
     }).
     factory("world", function(table, faCup, leagueCup, championsLeague, topScorers, sackedManager, playerOfTheYear, youngPlayerOfTheYear) {
-        var returned = {
-            premierLeague: false,
-            faCup: false
-        };
-        var result = {};
-        var returnResult = function(success, error) {
-            // TODO handle errors
-            if (returned.premierLeague &&
-                returned.topScorers) {
-                success(result);
-            }
-        }
-
         return {
             query: function(success, error) {
-                // TODO handle errors
+                var result = {};
                 result.faCup = faCup.query();
                 result.leagueCup = leagueCup.query();
                 result.championsLeague = championsLeague.query();
                 result.sackedManager = sackedManager.query();
                 result.playerOfTheYear = playerOfTheYear.query();
                 result.youngPlayerOfTheYear = youngPlayerOfTheYear.query();
-                returnResult(success, error);
-                result.premierLeague = table.query(null, function() {
-                    returned.premierLeague = true;
-                    returnResult(success, error);
-                });
-                result.topScorers = topScorers.query(null, function() {
-                    returned.topScorers = true;
-                    returnResult(success, error);
-                });
+                result.premierLeague = table.query();
+                result.topScorers = topScorers.query();
+                success(result);
             }
         };
     });

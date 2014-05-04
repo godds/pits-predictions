@@ -77,7 +77,7 @@
       <p>{{ selectedPlayer.prediction.playerOfTheYear }} - {{ selectedPlayer.playerOfTheYear }}pts</p>
 
       <h5>Young Player of the Year</h5>
-      <p>{{ selectedPlayer.prediction.youngPlayerOfTheYear }} - {{ selectedPlayer.youngPlayerOfTheYear }}</p>
+      <p>{{ selectedPlayer.prediction.youngPlayerOfTheYear }} - {{ selectedPlayer.youngPlayerOfTheYear }}pts</p>
     </section>
 
     <section class="span3">
@@ -87,18 +87,12 @@
           <tr>
             <td></td>
             <td>Team</td>
-            <td class="text-right">P</td>
-            <td class="text-right">GD</td>
-            <td class="text-right">Pts</td>
           </tr>
         </thead>
         <tbody>
           <tr ng-repeat="team in currentWorld.premierLeague">
             <td ng-bind="$index + 1" class="text-right"></td>
-            <td ng-bind="team.teamshort"></td>
-            <td ng-bind="team.played" class="text-right"></td>
-            <td ng-bind="team.difference" class="text-right"></td>
-            <td ng-bind="team.points" class="text-right"></td>
+            <td ng-bind="team"></td>
           </tr>
         </tbody>
       </table>
