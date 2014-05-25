@@ -16,14 +16,14 @@ angular.module("pp-services", ["ngResource"]).
     factory("table", function($resource) {
         return {
             query: function() {
-                return [ "Man City", "Liverpool", "Chelsea", "Arsenal", "Everton", "Tottenham", "Man Utd", "Southampton", "Newcastle", "Stoke", "Crystal Palace", "West Ham", "Swansea", "Aston Villa", "Hull", "West Brom", "Sunderland", "Norwich", "Fulham", "Cardiff" ];
+                return [ "Man City", "Liverpool", "Chelsea", "Arsenal", "Everton", "Tottenham", "Man Utd", "Southampton", "Stoke", "Newcastle", "Crystal Palace", "Swansea", "West Ham", "Sunderland", "Aston Villa", "Hull", "West Brom", "Norwich", "Fulham", "Cardiff" ];
             }
         };
     }).
     factory("faCup", function($resource) {
         return {
             query: function() {
-                return { final: [ "Arsenal", "Hull"], semi: [ "Wigan", "Arsenal", "Hull", "Sheffield Utd" ] };
+                return { winner: "Arsenal", final: [ "Arsenal", "Hull"], semi: [ "Wigan", "Arsenal", "Hull", "Sheffield Utd" ] };
             }
         };
     }).
@@ -37,7 +37,7 @@ angular.module("pp-services", ["ngResource"]).
     factory("championsLeague", function() {
         return {
             query: function() {
-                return { final: [ "Atletico Madrid", "Real Madrid" ], semi: [ "Atletico Madrid", "Real Madrid", "Barcelona", "Bayern Munich" ] };
+                return { winner: "Real Madrid", final: [ "Atletico Madrid", "Real Madrid" ], semi: [ "Atletico Madrid", "Real Madrid", "Barcelona", "Bayern Munich" ] };
             }
         };
     }).
