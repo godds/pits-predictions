@@ -37,7 +37,7 @@ angular.module("pp-services", ["ngResource"]).
     factory("championsLeague", function() {
         return {
             query: function() {
-                return { winner: "Real Madrid", final: [ "Atletico Madrid", "Real Madrid" ], semi: [ "Atletico Madrid", "Real Madrid", "Barcelona", "Bayern Munich" ] };
+                return { winner: "Real Madrid", final: [ "Atletico Madrid", "Real Madrid" ], semi: [ "Atletico Madrid", "Real Madrid", "Chelsea", "Bayern Munich" ] };
             }
         };
     }).
